@@ -1,50 +1,93 @@
-<<<<<<< HEAD
-Overview
-========
+# 🚀 NASA APOD ETL Pipeline
 
-Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
+This project automates the daily retrieval of NASA's Astronomy Picture of the Day (APOD) using the NASA Open API. It uses Apache Airflow to orchestrate the workflow, stores image metadata in a SQLite database, and is fully containerized with Docker.
 
-Project Contents
-================
+---
+📷 Workflow Diagram
+![project_workflow_img](https://github.com/user-attachments/assets/950c3e35-16ee-43c4-b168-2830c5373100)
 
-Your Astro project contains the following files and folders:
+## 🔧 Tech Stack
 
-- dags: This folder contains the Python files for your Airflow DAGs. By default, this directory includes one example DAG:
-    - `example_astronauts`: This DAG shows a simple ETL pipeline example that queries the list of astronauts currently in space from the Open Notify API and prints a statement for each astronaut. The DAG uses the TaskFlow API to define tasks in Python, and dynamic task mapping to dynamically print a statement for each astronaut. For more on how this DAG works, see our [Getting started tutorial](https://www.astronomer.io/docs/learn/get-started-with-airflow).
-- Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
-- include: This folder contains any additional files that you want to include as part of your project. It is empty by default.
-- packages.txt: Install OS-level packages needed for your project by adding them to this file. It is empty by default.
-- requirements.txt: Install Python packages needed for your project by adding them to this file. It is empty by default.
-- plugins: Add custom or community plugins for your project to this file. It is empty by default.
-- airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
+- **Apache Airflow** (via Astro CLI)
+- **Docker** (5-container setup)
+- **SQLite** (local persistent storage)
+- **Python 3.11+**
+- **NASA APOD API**
 
-Deploy Your Project Locally
-===========================
+---
 
-Start Airflow on your local machine by running 'astro dev start'.
+## 🧠 Project Structure
+nasa_apod_project/
+├── dags/
+│ └── nasa_apod_dag.py # Airflow DAG: fetches and logs APOD data
+├── include/
+│ └── nasa_apod.db # SQLite DB for storing image metadata
+├── workflow.png # Visual workflow diagram
+├── Dockerfile, requirements.txt # Astro + Airflow setup
+└── README.md
 
-This command will spin up five Docker containers on your machine, each for a different Airflow component:
+---
 
-- Postgres: Airflow's Metadata Database
-- Scheduler: The Airflow component responsible for monitoring and triggering tasks
-- DAG Processor: The Airflow component responsible for parsing DAGs
-- API Server: The Airflow component responsible for serving the Airflow UI and API
-- Triggerer: The Airflow component responsible for triggering deferred tasks
+## 🔁 What It Does
 
-When all five containers are ready the command will open the browser to the Airflow UI at http://localhost:8080/. You should also be able to access your Postgres Database at 'localhost:5432/postgres' with username 'postgres' and password 'postgres'.
+- Connects daily to the NASA APOD API
+- Downloads the high-res APOD image
+- Stores:
+  - `title`
+  - `date`
+  - `explanation`
+  - `image filename`
+- Inserts into a **SQLite database** (`nasa_apod.db`)
+- Fully managed via **Airflow DAG**
 
-Note: If you already have either of the above ports allocated, you can either [stop your existing Docker containers or change the port](https://www.astronomer.io/docs/astro/cli/troubleshoot-locally#ports-are-not-available-for-my-local-airflow-webserver).
+---
 
-Deploy Your Project to Astronomer
-=================================
+## ⚙️ How to Run This Locally
 
-If you have an Astronomer account, pushing code to a Deployment on Astronomer is simple. For deploying instructions, refer to Astronomer documentation: https://www.astronomer.io/docs/astro/deploy-code/
+### 1. Clone the Repo
 
-Contact
-=======
+```bash
+git clone https://github.com/ssiddhantam1/NASA_APOD_ETL_PIPELINE.git
+cd NASA_APOD_ETL_PIPELINE
 
-The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support.
-=======
-# NASA_APOD_ETL_PIPELINE
-Automated NASA APOD fetcher with Airflow + SQLite + Docker
->>>>>>> 061670d9d794511b4828f6f05e462d775bf312d7
+## Start Airflow via Astro CLI
+astro dev start
+This launches 5 Docker containers for:
+
+Scheduler
+
+Webserver
+
+Triggerer
+
+DAG processor
+
+Postgres (metadata)
+
+🗃️ Database: nasa_apod.db
+Located in include/
+
+Viewable with DB Browser for SQLite
+
+Table schema:
+| Column        | Type | Description                  |
+| ------------- | ---- | ---------------------------- |
+| `date`        | TEXT | APOD publish date            |
+| `title`       | TEXT | Title of the image           |
+| `explanation` | TEXT | NASA's APOD description      |
+| `image_path`  | TEXT | Filename of downloaded image |
+
+📊 Visualization (Coming Soon)
+A Dash-based dashboard to browse the APOD archive from the database is still under progress.
+
+📄 License
+MIT License
+
+🙌 Credits
+NASA APOD API
+
+Apache Airflow
+
+Astronomer CLI
+
+Built with ❤️ to explore the stars programmatically.

@@ -4,7 +4,8 @@ This project automates the daily retrieval of NASA's Astronomy Picture of the Da
 
 ---
 📷 Workflow Diagram
-<img src="workflow.png" alt="Workflow Diagram" height="400"/>
+<img src="![project_workflow_img](https://github.com/user-attachments/assets/e91455a6-b537-4a74-a950-887763444104)
+" alt="Workflow Diagram" height="400"/>
 
 
 ## 🔧 Tech Stack

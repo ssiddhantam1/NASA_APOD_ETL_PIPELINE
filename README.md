@@ -3,10 +3,8 @@
 This project automates the daily retrieval of NASA's Astronomy Picture of the Day (APOD) using the NASA Open API. It uses Apache Airflow to orchestrate the workflow, stores image metadata in a SQLite database, and is fully containerized with Docker.
 
 ---
-📷 Workflow Diagram
-<img src="![project_workflow_img](https://github.com/user-attachments/assets/e91455a6-b537-4a74-a950-887763444104)
-" alt="Workflow Diagram" height="400"/>
-
+## 📷 Workflow Diagram
+<img src="workflow.png" alt="Workflow Diagram" height="400"/>
 
 ## 🔧 Tech Stack
 

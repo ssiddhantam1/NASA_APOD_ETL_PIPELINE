@@ -17,18 +17,6 @@ This project automates the daily retrieval of NASA's Astronomy Picture of the Da
 
 ---
 
-## 🧠 Project Structure
-nasa_apod_project/
-├── dags/
-│ └── nasa_apod_dag.py # Airflow DAG: fetches and logs APOD data
-├── include/
-│ └── nasa_apod.db # SQLite DB for storing image metadata
-├── workflow.png # Visual workflow diagram
-├── Dockerfile, requirements.txt # Astro + Airflow setup
-└── README.md
-
----
-
 ## 🔁 What It Does
 
 - Connects daily to the NASA APOD API
